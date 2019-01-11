@@ -41,7 +41,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to my new application {{ title }}!\n  </h1>\n  \n</div>\n\n\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to my new application {{ title }}!\n  </h1>\n   <div class=row>\n   \n     <h3 class=\"col-12\"> Formulaire with material module:</h3>\n     <form [formGroup]=\"form\" class=\"col-6 mx-auto\"><br/><br/>\n      <!--<input type=\"text\" formControlName=\"input\"><br/><br/> -->\n      <mat-form-field floatPlaceholder=\"always\">\n       <!--<mat-place-holder> name </mat-place-holder>-->\n        <input matInput type=\"text\" placeholder=\"name\" formControlName=\"input\">\n        <mat-hint align=\"end\"> {{ form.get('input').value.length}}/10</mat-hint>\n      \n      </mat-form-field><br/><br/>\n\n      <mat-form-field>\n       <!--<mat-place-holder> name </mat-place-holder>-->\n        <input matInput type=\"text\" placeholder=\"email\" formControlName=\"email\">\n        <mat-hint align=\"end\"> {{ form.get('email').value.length}}/10</mat-hint>\n        <mat-error *ngIf=\"form.get('email').invalid\">{{ getError()}}</mat-error>\n      </mat-form-field><br/><br/>\n      <!--<input type=\"checkbox\" formControlName=\"checkbox\"><br/><br/>-->\n      <mat-checkbox formControlName=\"checkbox\"> Vrai/Faux</mat-checkbox><br/><br/>\n       <mat-radio-group formControlName=\"radio\">\n        <mat-radio-button value=\"Homme\">Homme</mat-radio-button>\n        <mat-radio-button value=\"Femme\">Femme</mat-radio-button>\n      </mat-radio-group><br/><br/>\n       <!--<input type=\"radio\" formControlName=\"radio\">Homme<br/>-->\n       <!--<input type=\"radio\" formControlName=\"radio\">Femme<br/><br/>-->\n       <!--<input type=\"radio\" formControlName=\"slidetoggle\">Homme<br/>-->\n       <!--<input type=\"radio\" formControlName=\"slidetoggle\">Femme<br/><br/>-->\n       <mat-slide-toggle formControlName=\"slidetoggle\">News letter ?</mat-slide-toggle><br/><br/>\n\n       <mat-form-field>\n        <mat-select formControlName=\"select\" placeholder=\"food\">\n        <mat-option value=\"pain\"> pain</mat-option>\n         <mat-option value=\"pate\"> pate</mat-option>\n         <mat-option value=\"pizza\"> pizza</mat-option>\n        </mat-select>\n       </mat-form-field><br/><br/>\n       <mat-slider min=\"0\" max=\"10\" formControlName=\"slider\"></mat-slider><br/><br/>\n\n       <mat-form-field>\n      \n        <input matInput placeholder=\"choisir une date\" [matDatepicker]=\"picker\" formControlName=\"date\">\n        <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n        <mat-datepicker #picker></mat-datepicker>\n      </mat-form-field><br/><br/>\n      <pre>{{ form.value | json }}</pre>\n     </form>\n     \n   </div>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -56,23 +56,49 @@ module.exports = "<!--The content below is only a placeholder and can be replace
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
-        this.title = 'client';
+    function AppComponent(fb) {
+        this.fb = fb;
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.form = this.fb.group({
+            email: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].email],
+            input: [""],
+            checkbox: [""],
+            radio: [""],
+            slidetoggle: [""],
+            select: [""],
+            range: [""],
+            date: [""]
+        });
+    };
+    AppComponent.prototype.ngOnSubmit = function () {
+        console.log(this.form.value);
+    };
+    AppComponent.prototype.getError = function () {
+        if (this.form.get("email").hasError('email')) {
+            return "l'email n'est pas valide";
+        }
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -95,7 +121,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./material.module */ "./src/app/material.module.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -107,13 +134,14 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]],
-            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_4__["BrowserAnimationsModule"], _material_module__WEBPACK_IMPORTED_MODULE_2__["MaterialModule"]],
+            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["ReactiveFormsModule"], _material_module__WEBPACK_IMPORTED_MODULE_2__["MaterialModule"]],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
         })
@@ -137,7 +165,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MaterialModule", function() { return MaterialModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var hammerjs_hammer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hammerjs/hammer */ "./node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs_hammer__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs_hammer__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -147,7 +177,19 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-var MATERIAL = [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatButtonModule"], _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatCheckboxModule"]];
+
+var MATERIAL = [
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatButtonModule"],
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatCheckboxModule"],
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatFormFieldModule"],
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatInputModule"],
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatRadioModule"],
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSlideToggleModule"],
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSelectModule"],
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatSliderModule"],
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatNativeDateModule"],
+    _angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDatepickerModule"]
+];
 var MaterialModule = /** @class */ (function () {
     function MaterialModule() {
     }
